@@ -18,3 +18,9 @@ class FormularioCurso(forms.Form):
         widget=forms.DateInput(attrs={"type": "date"})
     )
     """
+
+class FormularioCursoDos(ModelForm):
+    class Meta:
+        model = Curso
+        fields = ["nombre", "inscriptos","turno"]
+        

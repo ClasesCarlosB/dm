@@ -211,7 +211,15 @@ def nuevo_curso(request):
         return render(request, "myapp/nuevo_curso.html", ctx)
 
 
+def cursos_orm(request):
+    cursos = Curso.objects.all()
+    print(cursos[0].get_turno_display())
+    ctx = {"cursos": cursos}
+    return render(request, "myapp/cursos_orm.html", ctx)
 
 
+def cursos_json(request):
+    response = JsonResponse(list(Curso.objects.values()), safe=False)
+    return response
 
 
