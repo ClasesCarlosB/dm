@@ -10,4 +10,12 @@ urlpatterns = [
     path("aeropuertos", views.aeropuertos, name="aeropuertos"),
     path("servicio-aeropuertos", views.servicio_aeropuertos,
          name="servicio_aeropuertos"),
+    path("nuevo", views.nuevo_index,
+         name="nuevo"),
+    path("pasando", views.pasando,
+         name="pasando"),
+    path("sentencias", views.sentencias,
+         name="sentencias"),
+    path("nueva-cursos", views.nueva_cursos, name="nueva_cursos"),
+    path("capturar/<str:nombre_curso>", views.capturar, name="capturar"),
 ]

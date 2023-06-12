@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 import sqlite3
 import requests
@@ -136,5 +137,58 @@ def servicio_aeropuertos(request):
         d = {"nombre": a, "ciudad": c, "pais": p}
         info.append(d)
     return JsonResponse(info, safe=False)
+
+
+def nuevo_index(request):
+    return render(request, "myapp/hola.html")
+
+
+def pasando(request):
+    #ctx = {"nombre": "Juan"}
+    """
+    ctx = {
+        "nombre": "Juan",
+        "cursos": 5,
+        "curso_actual": "Python & Django"
+    }
+    """
+    ctx = {
+        "nombre": "Juan",
+        "cursos": 5,
+        "curso_actual": {"nombre": "Python & Django", "turno": "Noche"},
+        "cursos_anteriores": ["Java", "PHP", "JavaScript", "Python"]
+    }
+
+    return render(request, "myapp/data.html", ctx)
+
+
+def sentencias(request):
+    ctx = {
+        "nombre": "Juan",
+        "cursos": 2,
+        "alumnos": ["Juan", "Sofía", "Matias"]
+    }
+    return render(request, "myapp/sentencias.html", ctx)
+
+
+def nueva_cursos(request):
+    conn = sqlite3.connect("cursos.sqlite3")
+    cursor = conn.cursor()
+    cursor.execute("SELECT nombre, inscriptos FROM curso")
+    cursos = cursor.fetchall()
+    conn.close()
+    ctx = {"cursos": cursos}
+    return render(request, "myapp/cursos.html", ctx)
+
+
+def capturar(request, nombre_curso):
+    conn = sqlite3.connect("cursos.sqlite3")
+    cursor = conn.cursor()
+    cursor.execute("SELECT nombre, inscriptos FROM curso WHERE nombre=?",
+                   [nombre_curso])
+    curso = cursor.fetchone()  # [JAVA,5]
+    ctx = {"curso": curso}
+    conn.close()
+    return render(request, "myapp/curso.html", ctx)
 
 
