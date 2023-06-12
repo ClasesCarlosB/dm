@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.urls import reverse
+from . import forms
 import sqlite3
 import requests
-
+from .models import Curso
 
 def index(request):
     f = open("index.html", "r", encoding="utf8")
@@ -190,5 +192,26 @@ def capturar(request, nombre_curso):
     ctx = {"curso": curso}
     conn.close()
     return render(request, "myapp/curso.html", ctx)
+
+
+def nuevo_curso(request):
+    if request.method == "POST":
+        form = forms.FormularioCurso(request.POST)
+        if form.is_valid():
+            conn = sqlite3.connect("cursos.sqlite3")
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO curso VALUES (?, ?)",
+                           (form.cleaned_data["nombre"], form.cleaned_data["inscriptos"]))
+            conn.commit()
+            conn.close()
+            return render(request, "myapp/mensaje.html")
+    else:
+        form = forms.FormularioCurso()
+        ctx = {"form": form}
+        return render(request, "myapp/nuevo_curso.html", ctx)
+
+
+
+
 
 

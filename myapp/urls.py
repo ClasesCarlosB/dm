@@ -18,4 +18,8 @@ urlpatterns = [
          name="sentencias"),
     path("nueva-cursos", views.nueva_cursos, name="nueva_cursos"),
     path("capturar/<str:nombre_curso>", views.capturar, name="capturar"),
+    path("nuevo-curso", views.nuevo_curso, name="nuevo-curso"),
+    path("cursos-orm", views.cursos_orm, name="cursos-orm"),
+    path("cursos-json", views.cursos_json, name="cursos-json"),
+    path("nuevo-curso-mf", views.nuevo_curso_mf, name="nuevo-curso-mf"),
 ]
