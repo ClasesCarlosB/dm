@@ -223,3 +223,13 @@ def cursos_json(request):
     return response
 
 
+def nuevo_curso_mf(request):
+    if request.method == "POST":
+        form = forms.FormularioCursoDos(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse("cursos-orm"))
+    else:
+        form = forms.FormularioCursoDos()
+        ctx = {"form": form}
+        return render(request, "myapp/nuevo_curso.html", ctx)
