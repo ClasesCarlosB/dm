@@ -1,0 +1,8 @@
+Django==4.2.2
+django-filter==23.2
+djangorestframework==3.14.0
+ipython==8.14.0
+Markdown==3.4.3
+requests==2.31.0
+pymysql==1.0.3
+
