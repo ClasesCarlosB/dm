@@ -233,3 +233,6 @@ def nuevo_curso_mf(request):
         form = forms.FormularioCursoDos()
         ctx = {"form": form}
         return render(request, "myapp/nuevo_curso.html", ctx)
+    
+    
+
